@@ -1,0 +1,47 @@
+<?php
+$collection = $block->getNewsListCollection();
+$mediaUrl = $block->getMediaUrl();
+if ($collection->count()) {
+    ?>
+    <div class="table-wrapper news-list-history">
+        <table class="data table table-order-items history" id="news-list-table">
+            <caption class="table-caption"><?php echo __('News Feed Record') ?></caption>
+            <thead>
+                <tr>
+                    <th scope="col" class="col id"><?php echo __('ID') ?></th>
+                    <th scope="col" class="col name"><?php echo __('Title') ?></th>
+                    <th scope="col" class="col email"><?php echo __('Image') ?></th>
+                    <th scope="col" class="col telephone"><?php echo __('Description') ?></th>
+                    <th scope="col" class="col telephone"><?php echo __('Status') ?></th>
+                    <th scope="col" class="col createat"><?php echo __('Created At') ?></th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php
+                foreach ($collection as $item): ?>
+                    <tr>
+                        <td data-th="<?= $block->escapeHtml(__('ID')) ?>" class="col id">
+                            <?php echo $item->getNewsId() ?>
+                        </td>
+                        <td data-th="<?= $block->escapeHtml(__('Title')) ?>" class="col title">
+                            <?php echo $item->getTitle() ?>
+                        </td>
+                        <td data-th="<?= $block->escapeHtml(__('Image')) ?>" class="col image">
+                           <img class="thumbnail" src="<?php echo $mediaUrl . $item->getImage() ?>" alt="<?php echo $item->getTitle() ?>">
+                        </td>
+                        <td data-th="<?= $block->escapeHtml(__('Description')) ?>" class="col description">
+                            <?php echo $item->getDescription() ?>
+                        </td>
+                        <td data-th="<?= $block->escapeHtml(__('Status')) ?>" class="col status">
+                            <?php echo $block->getStatusLabel($item->getStatus()) ?>
+                        </td>
+                        <td data-th="<?= $block->escapeHtml(__('Created At')) ?>"
+                            class="col title"><?php echo date('d-m-Y', strtotime($item->getCreatedAt())); ?></td>
+                    </tr>
+                    <?php endforeach; ?>
+            </tbody>
+        </table>
+    </div>
+    <?php
+}
+?>

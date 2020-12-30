@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+
+    <preference for="Demo\News\Api\NewsInterface" type="Demo\News\Model\Api\NewsApi"/>
+    <preference for="Demo\News\Api\Data\NewsApiInterface" type="Demo\News\Model\News" />
+
+    <virtualType name="Demo\News\Model\ResourceModel\News\News\Collection" type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">demo_news</argument>
+            <argument name="resourceModel" xsi:type="string">Demo\News\Model\ResourceModel\News</argument>
+        </arguments>
+    </virtualType>
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="demo_news_data_source" xsi:type="string">Demo\News\Model\ResourceModel\News\News\Collection</item>
+            </argument>
+        </arguments>
+    </type>
+
+</config>
